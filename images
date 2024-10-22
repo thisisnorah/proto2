@@ -1,11 +1,9 @@
-# 로컬 리포지토리로 이동
 cd your-repository-folder
 
-# 이미지 파일 추가
+
 git add images/gradient-blur-pink-blue-abstract-background_53876-117324.jpg
 
-# 커밋 메시지 작성 후 커밋
+
 git commit -m "Add background image"
 
-# 원격 리포지토리에 푸시
 git push origin main
