@@ -30,22 +30,16 @@
     <label for="functionSelect">함수를 선택하세요:</label>
     <select id="functionSelect" onchange="showInputFields()">
         <option value="">선택</option>
-        <!-- Functions for Children -->
-        <optgroup id="childrenFunctions" label="소아">
-            <option value="med_name1">약_이름 1</option>
-            <option value="med_name2">약_이름 2</option>
-            <option value="med_name3">약_이름 3</option>
-            <option value="med_name4">약_이름 4</option>
-            <option value="med_name5">약_이름 5</option>
-        </optgroup>
-        <!-- Functions for Adults -->
-        <optgroup id="adultFunctions" label="어른" class="hidden">
-            <option value="med_name6">약_이름 6</option>
-            <option value="med_name7">약_이름 7</option>
-            <option value="med_name8">약_이름 8</option>
-            <option value="med_name9">약_이름 9</option>
-            <option value="med_name10">약_이름 10</option>
-        </optgroup>
+        <option value="med_name1">약_이름 1</option>
+        <option value="med_name2">약_이름 2</option>
+        <option value="med_name3">약_이름 3</option>
+        <option value="med_name4">약_이름 4</option>
+        <option value="med_name5">약_이름 5</option>
+        <option value="med_name6">약_이름 6</option>
+        <option value="med_name7">약_이름 7</option>
+        <option value="med_name8">약_이름 8</option>
+        <option value="med_name9">약_이름 9</option>
+        <option value="med_name10">약_이름 10</option>
     </select>
 
     <div id="inputFields" class="hidden">
@@ -53,8 +47,6 @@
         <input type="number" id="variable1" placeholder="변수 1 입력"><br>
         <label for="variable2">몸무게:</label>
         <input type="number" id="variable2" placeholder="변수 2 입력"><br>
-        <label for="variable3">나이:</label>
-        <input type="number" id="variable3" placeholder="변수 3 입력"><br>
     </div>
     
     <button onclick="calculateDosage()">계산</button>
@@ -67,25 +59,12 @@
             currentAgeGroup = ageGroup;
             const childrenButton = document.getElementById('childrenButton');
             const adultsButton = document.getElementById('adultsButton');
-            const childrenFunctions = document.getElementById('childrenFunctions');
-            const adultFunctions = document.getElementById('adultFunctions');
-            const functionSelect = document.getElementById('functionSelect');
 
             // Highlight the selected button
             childrenButton.classList.toggle('active', ageGroup === 'children');
             adultsButton.classList.toggle('active', ageGroup === 'adults');
 
-            // Show/hide function options based on selected age group
-            if (ageGroup === 'children') {
-                childrenFunctions.classList.remove('hidden');
-                adultFunctions.classList.add('hidden');
-            } else {
-                childrenFunctions.classList.add('hidden');
-                adultFunctions.classList.remove('hidden');
-            }
-
-            functionSelect.value = ''; // Reset function select
-            showInputFields(); // Hide input fields
+            showInputFields(); // Show input fields after selecting age group
         }
 
         function showInputFields() {
@@ -98,43 +77,42 @@
             const selectedFunction = document.getElementById('functionSelect').value;
             const variable1 = parseFloat(document.getElementById('variable1').value);
             const variable2 = parseFloat(document.getElementById('variable2').value);
-            const variable3 = parseFloat(document.getElementById('variable3').value);
             let dosage = 0;
 
             if (currentAgeGroup === 'children') {
                 switch (selectedFunction) {
                     case 'med_name1':
-                        dosage = (variable1 + variable2) * variable3; // Example formula
+                        dosage = (variable1 + variable2) * 1; // Example formula
                         break;
                     case 'med_name2':
-                        dosage = variable1 * variable1 + variable2 * variable2 + variable3 * variable3; // Example formula
+                        dosage = variable1 * variable1 + variable2 * variable2; // Example formula
                         break;
                     case 'med_name3':
-                        dosage = variable1 / (variable2 + variable3); // Example formula
+                        dosage = variable1 / variable2; // Example formula
                         break;
                     case 'med_name4':
-                        dosage = (variable1 + variable2) - variable3; // Example formula
+                        dosage = (variable1 + variable2) - 1; // Example formula
                         break;
                     case 'med_name5':
-                        dosage = (variable1 * variable3) - variable2; // Example formula
+                        dosage = (variable1 * 1) - variable2; // Example formula
                         break;
                 }
             } else {
                 switch (selectedFunction) {
                     case 'med_name6':
-                        dosage = (variable1 + variable2) / variable3; // Example formula
+                        dosage = (variable1 + variable2) / 2; // Example formula
                         break;
                     case 'med_name7':
-                        dosage = variable1 * variable2 + variable3; // Example formula
+                        dosage = variable1 * variable2; // Example formula
                         break;
                     case 'med_name8':
-                        dosage = (variable1 + variable2 + variable3) * 2; // Example formula
+                        dosage = (variable1 + variable2) * 2; // Example formula
                         break;
                     case 'med_name9':
-                        dosage = variable1 - variable2 + variable3; // Example formula
+                        dosage = variable1 - variable2; // Example formula
                         break;
                     case 'med_name10':
-                        dosage = (variable1 * variable2) / (variable3 + 1); // Example formula
+                        dosage = (variable1 * variable2) / 2; // Example formula
                         break;
                 }
             }
