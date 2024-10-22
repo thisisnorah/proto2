@@ -5,6 +5,11 @@ body {
     text-align: center;
     margin: 20px;
     background-color: #87dced; /* 배경색 설정 */
+    background-image: url("C:\Users\ADMIN\Desktop\gradient-blur-pink-blue-abstract-background_53876-117324.jpg"); /* 배경 이미지 설정 */
+    background-size: cover; /* 이미지가 화면을 덮도록 설정 */
+    background-position: center; /* 이미지를 중앙에 위치 */
+    background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    background-attachment: fixed; /* 스크롤할 때 배경이 고정되도록 설정 */
 }
 
 .button-group {
@@ -39,7 +44,7 @@ button:disabled {
 select, input {
     margin-top: 10px;
     padding: 8px;
-    width: 10%; /* 입력란 너비를 35%로 조정 */
+    width: 10%; /* 입력란 너비를 10%로 조정 */
     font-size: 1.2em;  /* Increase font size */
     font-weight: bold;  /* Make text bold */
     border-radius: 10px; /* 모서리 둥글게 */
