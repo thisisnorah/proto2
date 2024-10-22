@@ -1,9 +1,0 @@
-cd your-repository-folder
-
-
-git add images/gradient-blur-pink-blue-abstract-background_53876-117324.jpg
-
-
-git commit -m "Add background image"
-
-git push origin main
