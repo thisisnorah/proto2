@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
-    background-color: #EBD3C0; /* 배경색 변경 */
+    background-color: #EBD3C0; /* 배경색 설정 */
 }
 
 .button-group {
@@ -35,16 +35,21 @@ button:disabled {
     background-color: #a9a9a9;
 }
 
+/* 입력란 스타일 */
 select, input {
     margin-top: 10px;
     padding: 8px;
-    width: 50%;
+    width: 40%; /* 입력란 너비 조정 */
     font-size: 1.2em;  /* Increase font size */
     font-weight: bold;  /* Make text bold */
+    border-radius: 10px; /* 모서리 둥글게 */
 }
 
 #inputFields {
-    margin-top: 40px;  /* Add more space at the top */
+    margin-top: 20px;  /* Add more space at the top */
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가운데 정렬 */
 }
 
 h2 {
