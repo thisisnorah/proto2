@@ -15,10 +15,12 @@
         }
         .button-group {
             margin-bottom: 10px;
+            display: flex; /* Flexbox를 사용하여 버튼 정렬 */
+            justify-content: center; /* 가운데 정렬 */
         }
         /* 버튼 너비 조정 */
         .button-group button {
-            width: 50%; /* 버튼의 너비를 절반으로 줄임 */
+            width: 45%; /* 버튼의 너비를 45%로 줄임 */
             margin-right: 5px; /* 버튼 사이의 간격 */
         }
         /* 계산 버튼과 입력란 사이의 간격 조정 */
@@ -52,10 +54,16 @@
     </select>
 
     <div id="inputFields" class="hidden">
-        <label for="variable1">키:</label>
-        <input type="number" id="variable1" placeholder="변수 1 입력"><br>
-        <label for="variable2">몸무게:</label>
-        <input type="number" id="variable2" placeholder="변수 2 입력"><br>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+            <div style="width: 45%;">
+                <label for="variable1">키:</label>
+                <input type="number" id="variable1" placeholder="변수 1 입력"><br>
+            </div>
+            <div style="width: 45%;">
+                <label for="variable2">몸무게:</label>
+                <input type="number" id="variable2" placeholder="변수 2 입력"><br>
+            </div>
+        </div>
     </div>
     
     <button id="calculateButton" onclick="calculateDosage()">계산</button>
