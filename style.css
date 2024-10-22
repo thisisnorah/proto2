@@ -1,59 +1,45 @@
+/* CSS for 약복용량 계산기 */
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5dc; /* 베이지 배경색 */
-    color: #333;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    color: #0066cc;
+    font-family: Arial, sans-serif;
     text-align: center;
+    margin: 20px;
 }
 
-label {
-    font-weight: bold;
-    margin-top: 10px;
-    display: block;
-}
-
-input, select, button {
-    font-size: 16px;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 25px; /* 둥근 모서리 */
-    width: 100%;
-}
-
-select {
-    background-color: #fff;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 button {
-    background-color: #0066cc;
-    color: white;
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border: none;
     cursor: pointer;
-    border-radius: 25px; /* 둥근 모서리 */
+    background-color: #d3d3d3;
+    color: white;
 }
 
-button:hover {
-    background-color: #004c99;
+button.active {
+    background-color: #555;
+}
+
+button:disabled {
+    background-color: #a9a9a9;
+}
+
+select, input {
+    margin-top: 10px;
+    padding: 8px;
+    width: 50%;
 }
 
 #inputFields {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 25px; /* 둥근 모서리 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
+    margin-top: 20px;
 }
 
-#dosageResult {
-    font-size: 24px;
-    font-weight: bold;
-    color: #e60000;
+h2 {
+    margin-top: 30px;
 }
