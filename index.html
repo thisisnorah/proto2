@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>약복용량 계산기</title>
+    <title>약 복용량 계산기</title>
     <link rel="stylesheet" href="style.css">  <!-- CSS 파일 연결 -->
     <style>
         .hidden {
@@ -15,34 +15,14 @@
         }
         .button-group {
             margin-bottom: 10px;
-            display: flex; /* Flexbox를 사용하여 버튼 정렬 */
-            justify-content: center; /* 가운데 정렬 */
         }
-        /* 버튼 너비 조정 */
-        .button-group button {
-            width: 45%; /* 버튼의 너비를 45%로 줄임 */
-            margin: 0 2.5%; /* 버튼 사이의 간격 */
-        }
-        /* 계산 버튼과 입력란 사이의 간격 조정 */
-        #calculateButton {
-            margin-top: 20px; /* 계산 버튼 위쪽 간격 */
-        }
-        /* 입력란 스타일 */
-        #inputFields {
-            margin-top: 20px; /* 입력란 위쪽 간격 */
-            display: flex;
-            flex-direction: column; /* 세로 정렬 */
-            align-items: center; /* 가운데 정렬 */
-        }
-        /* 입력란 너비 */
-        input {
-            width: 70%; /* 입력란 너비 조정 */
-            margin-bottom: 10px; /* 입력란 간격 */
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body>
-    <h1>약복용량 계산기</h1>
+    <h1>약 복용량 계산기</h1>
 
     <!-- Age Group Buttons -->
     <div class="button-group">
@@ -50,98 +30,99 @@
         <button id="adultsButton" onclick="selectAgeGroup('adults')">성인</button>
     </div>
 
-    <label for="functionSelect">함수를 선택하세요:</label>
+    <label for="functionSelect">약물을 선택하세요:</label>
     <select id="functionSelect" onchange="showInputFields()">
         <option value="">선택</option>
-        <option value="med_name1">약_이름 1</option>
-        <option value="med_name2">약_이름 2</option>
-        <option value="med_name3">약_이름 3</option>
-        <option value="med_name4">약_이름 4</option>
-        <option value="med_name5">약_이름 5</option>
-        <option value="med_name6">약_이름 6</option>
-        <option value="med_name7">약_이름 7</option>
-        <option value="med_name8">약_이름 8</option>
-        <option value="med_name9">약_이름 9</option>
-        <option value="med_name10">약_이름 10</option>
+        <option value="tylenol">타이레놀</option>
+        <option value="aspirin">아스피린</option>
+        <option value="ibuprofen">이부프로펜</option>
     </select>
 
     <div id="inputFields" class="hidden">
-        <label for="variable1">키:</label>
-        <input type="number" id="variable1" placeholder="키 입력"><br>
-        
-        <label for="variable2">몸무게:</label>
-        <input type="number" id="variable2" placeholder="몸무게 입력"><br>
+        <label for="height">키 (cm):</label>
+        <input type="number" id="height" placeholder="키 입력"><br>
+        <label for="weight">몸무게 (kg):</label>
+        <input type="number" id="weight" placeholder="몸무게 입력"><br>
     </div>
     
-    <button id="calculateButton" onclick="calculateDosage()">계산</button>
-    <h2>약복용량: <span id="dosageResult">0</span></h2>
+    <button onclick="calculateDosage()">계산</button>
+
+    <h2>체표면적: <span id="bsaResult">0</span> m²</h2>
+    <h2>약 복용량: <span id="dosageResult">0</span></h2>
+    <h2>정수: <span id="tabletCount">0</span></h2>
+    <h3 class="error" id="errorMessage"></h3>
 
     <script>
         let currentAgeGroup = 'children'; // Default age group
 
         function selectAgeGroup(ageGroup) {
             currentAgeGroup = ageGroup;
-            const childrenButton = document.getElementById('childrenButton');
-            const adultsButton = document.getElementById('adultsButton');
-
-            // Highlight the selected button
-            childrenButton.classList.toggle('active', ageGroup === 'children');
-            adultsButton.classList.toggle('active', ageGroup === 'adults');
-
-            showInputFields(); // Show input fields after selecting age group
+            document.getElementById('childrenButton').classList.toggle('active', ageGroup === 'children');
+            document.getElementById('adultsButton').classList.toggle('active', ageGroup === 'adults');
+            showInputFields();
         }
 
         function showInputFields() {
-            const selectedFunction = document.getElementById('functionSelect').value;
             const inputFields = document.getElementById('inputFields');
-            inputFields.classList.toggle('hidden', selectedFunction === '');
+            inputFields.classList.toggle('hidden', document.getElementById('functionSelect').value === '');
         }
 
         function calculateDosage() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
             const selectedFunction = document.getElementById('functionSelect').value;
-            const variable1 = parseFloat(document.getElementById('variable1').value);
-            const variable2 = parseFloat(document.getElementById('variable2').value);
-            let dosage = 0;
 
-            if (currentAgeGroup === 'children') {
-                switch (selectedFunction) {
-                    case 'med_name1':
-                        dosage = (variable1 + variable2) * 1; // Example formula
-                        break;
-                    case 'med_name2':
-                        dosage = variable1 * variable1 + variable2 * variable2; // Example formula
-                        break;
-                    case 'med_name3':
-                        dosage = variable1 / variable2; // Example formula
-                        break;
-                    case 'med_name4':
-                        dosage = (variable1 + variable2) - 1; // Example formula
-                        break;
-                    case 'med_name5':
-                        dosage = (variable1 * 1) - variable2; // Example formula
-                        break;
-                }
+            // BSA 계산 (Mosteller 공식)
+            const bsa = Math.sqrt((height * weight) / 3600);  // BSA 계산
+            document.getElementById('bsaResult').innerText = bsa.toFixed(2); // BSA 결과 표시
+
+            // BSA 값이 비정상적일 경우 오류 메시지 표시
+            if (bsa < 1 || bsa > 3) {
+                document.getElementById('errorMessage').innerText = "입력값을 확인하세요: 정상적인 BSA 범위는 1 m² 이상 3 m² 이하입니다.";
+                return;
             } else {
-                switch (selectedFunction) {
-                    case 'med_name6':
-                        dosage = (variable1 + variable2) / 2; // Example formula
-                        break;
-                    case 'med_name7':
-                        dosage = variable1 * variable2; // Example formula
-                        break;
-                    case 'med_name8':
-                        dosage = (variable1 + variable2) * 2; // Example formula
-                        break;
-                    case 'med_name9':
-                        dosage = variable1 - variable2; // Example formula
-                        break;
-                    case 'med_name10':
-                        dosage = (variable1 * variable2) / 2; // Example formula
-                        break;
-                }
+                document.getElementById('errorMessage').innerText = ""; // 오류 메시지 제거
             }
 
+            // 약물 복용량 계산
+            const { dosage, tabletCount } = calculateDosageForMedication(selectedFunction, bsa);
             document.getElementById('dosageResult').innerText = dosage;
+            document.getElementById('tabletCount').innerText = tabletCount;
+        }
+
+        function calculateDosageForMedication(medication, bsa) {
+            let dosage = '';
+            let tabletCount = 0;
+
+            // 약물의 1정당 함유량
+            const dosagePerTablet = {
+                tylenol: 500,   // 500 mg/정
+                aspirin: 325,   // 325 mg/정
+                ibuprofen: 200   // 200 mg/정
+            };
+
+            switch (medication) {
+                case 'tylenol':
+                    // 1.7 m²에 대한 기준을 1000 mg으로 설정
+                    const tylenolDosage = (bsa / 1.7) * 1000; // BSA에 따른 용량
+                    dosage = `최대 ${tylenolDosage.toFixed(2)} mg`;
+                    tabletCount = Math.ceil(tylenolDosage / dosagePerTablet.tylenol);
+                    break;
+                case 'aspirin':
+                    const aspirinDosage = Math.min(1300, (bsa * 10).toFixed(2)); // 최대 1300 mg
+                    dosage = `최대 ${aspirinDosage} mg`;
+                    tabletCount = Math.ceil(aspirinDosage / dosagePerTablet.aspirin);
+                    break;
+                case 'ibuprofen':
+                    const ibuprofenDosage = Math.min(1200, (bsa * 10).toFixed(2)); // 최대 1200 mg
+                    dosage = `최대 ${ibuprofenDosage} mg`;
+                    tabletCount = Math.ceil(ibuprofenDosage / dosagePerTablet.ibuprofen);
+                    break;
+                default:
+                    dosage = "약물을 선택하세요.";
+            }
+
+            return { dosage, tabletCount };
         }
     </script>
 </body>
