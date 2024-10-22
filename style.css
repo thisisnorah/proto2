@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
-    background-color: #f6fab4;
+    background-color: #EBD3C0; /* 배경색 변경 */
 }
 
 .button-group {
