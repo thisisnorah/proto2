@@ -15,18 +15,24 @@
         }
         .button-group {
             margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group button {
+            flex: 1;
+        }
+        .spacer {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <h1>약복용량 계산기</h1>
-
     <!-- Age Group Buttons -->
     <div class="button-group">
         <button id="childrenButton" onclick="selectAgeGroup('children')" class="active">소아</button>
         <button id="adultsButton" onclick="selectAgeGroup('adults')">성인</button>
     </div>
-
     <label for="functionSelect">함수를 선택하세요:</label>
     <select id="functionSelect" onchange="showInputFields()">
         <option value="">선택</option>
@@ -41,44 +47,36 @@
         <option value="med_name9">약_이름 9</option>
         <option value="med_name10">약_이름 10</option>
     </select>
-
     <div id="inputFields" class="hidden">
         <label for="variable1">키:</label>
         <input type="number" id="variable1" placeholder="변수 1 입력"><br>
         <label for="variable2">몸무게:</label>
-        <input type="number" id="variable2" placeholder="변수 2 입력"><br>
+        <input type="number" id="variable2" placeholder="변수 2 입력">
+        <div class="spacer"></div>
+        <button onclick="calculateDosage()">계산</button>
     </div>
-    
-    <button onclick="calculateDosage()">계산</button>
     <h2>약복용량: <span id="dosageResult">0</span></h2>
-
     <script>
         let currentAgeGroup = 'children'; // Default age group
-
         function selectAgeGroup(ageGroup) {
             currentAgeGroup = ageGroup;
             const childrenButton = document.getElementById('childrenButton');
             const adultsButton = document.getElementById('adultsButton');
-
             // Highlight the selected button
             childrenButton.classList.toggle('active', ageGroup === 'children');
             adultsButton.classList.toggle('active', ageGroup === 'adults');
-
             showInputFields(); // Show input fields after selecting age group
         }
-
         function showInputFields() {
             const selectedFunction = document.getElementById('functionSelect').value;
             const inputFields = document.getElementById('inputFields');
             inputFields.classList.toggle('hidden', selectedFunction === '');
         }
-
         function calculateDosage() {
             const selectedFunction = document.getElementById('functionSelect').value;
             const variable1 = parseFloat(document.getElementById('variable1').value);
             const variable2 = parseFloat(document.getElementById('variable2').value);
             let dosage = 0;
-
             if (currentAgeGroup === 'children') {
                 switch (selectedFunction) {
                     case 'med_name1':
@@ -116,7 +114,6 @@
                         break;
                 }
             }
-
             document.getElementById('dosageResult').innerText = dosage;
         }
     </script>
