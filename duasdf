@@ -1,0 +1,78 @@
+<script>
+    let currentAgeGroup = 'children'; // Default age group
+    function selectAgeGroup(ageGroup) {
+        currentAgeGroup = ageGroup;
+        const childrenButton = document.getElementById('childrenButton');
+        const adultsButton = document.getElementById('adultsButton');
+        // Highlight the selected button
+        childrenButton.classList.toggle('active', ageGroup === 'children');
+        adultsButton.classList.toggle('active', ageGroup === 'adults');
+        showInputFields(); // Show input fields after selecting age group
+    }
+
+    function showInputFields() {
+        const selectedFunction = document.getElementById('functionSelect').value;
+        const inputFields = document.getElementById('inputFields');
+        inputFields.classList.toggle('hidden', selectedFunction === '');
+    }
+
+    function calculateDosage() {
+        const selectedFunction = document.getElementById('functionSelect').value;
+        const variable1 = parseFloat(document.getElementById('variable1').value);
+        const variable2 = parseFloat(document.getElementById('variable2').value);
+        let dosage = 0;
+        if (currentAgeGroup === 'children') {
+            switch (selectedFunction) {
+                case 'med_name1':
+                    dosage = ((variable1 + variable2) * 1) * 2; // Example formula
+                    break;
+                case 'med_name2':
+                    dosage = (variable1 * variable1 + variable2 * variable2) * 2; // Example formula
+                    break;
+                case 'med_name3':
+                    dosage = (variable1 / variable2) * 2; // Example formula
+                    break;
+                case 'med_name4':
+                    dosage = ((variable1 + variable2) - 1) * 2; // Example formula
+                    break;
+                case 'med_name5':
+                    dosage = ((variable1 * 1) - variable2) * 2; // Example formula
+                    break;
+                case 'med_name6':
+                    dosage = ((variable1 + variable2) / 2) * 2; // Example formula
+                    break;
+                case 'med_name7':
+                    dosage = (variable1 * variable2) * 2; // Example formula
+                    break;
+                case 'med_name8':
+                    dosage = ((variable1 + variable2) * 2) * 2; // Example formula
+                    break;
+                case 'med_name9':
+                    dosage = (variable1 - variable2) * 2; // Example formula
+                    break;
+                case 'med_name10':
+                    dosage = ((variable1 * variable2) / 2) * 2; // Example formula
+                    break;
+            }
+        } else {
+            switch (selectedFunction) {
+                case 'med_name6':
+                    dosage = (variable1 + variable2) / 2; // Example formula
+                    break;
+                case 'med_name7':
+                    dosage = variable1 * variable2; // Example formula
+                    break;
+                case 'med_name8':
+                    dosage = (variable1 + variable2) * 2; // Example formula
+                    break;
+                case 'med_name9':
+                    dosage = variable1 - variable2; // Example formula
+                    break;
+                case 'med_name10':
+                    dosage = (variable1 * variable2) / 2; // Example formula
+                    break;
+            }
+        }
+        document.getElementById('dosageResult').innerText = dosage;
+    }
+</script>
